@@ -37,16 +37,26 @@ const updateTic = function (string, turnNum) {
 };
 
 const randomPosition = function(array) {
-    const randomIndex1 = Math.floor(Math.random() * 3);
-    const randomIndex2 = Math.floor(Math.random() * 3);
-    if (isNaN(array[randomIndex1][randomIndex2])) {
-        return String(randomIndex1) + String(randomIndex2);
-    } else {
-        randomPosition(array);
+    let result = true;
+    let index;
+    while (result === true) {
+        randomIndex1 = Math.floor(Math.random() * 3);
+        randomIndex2 = Math.floor(Math.random() * 3);
+        if (isNaN(array[randomIndex1][randomIndex2])) {
+            result = false;
+            index = String(randomIndex1) + String(randomIndex2);
+        };
     };
+    return index;
 };
 
 const computerMove = function (array) {
+    if (turnCount >= 9) {
+        return;
+    };
+    if (isNaN(array[1][1])) {
+        return "11";
+    };    
     for (i = 0; i < 3; i++) {
         if (array[i][0] === array[i][1] && isNaN(array[i][2])) {
             return i+"2";
@@ -75,33 +85,28 @@ const computerMove = function (array) {
     } else if (array[1][1] === array[2][0] && isNaN(array[0][2])) {
         return "02";
     };
-    if (isNaN(array[1][1])) {
-        return "11";
-    };
-    
-    return randomPosition(array);
-    
+    return randomPosition(array);   
 };
 
 let turnCount = 1;
 //get id when picture is clicked 
 $('.gamebox').on('click', function () {
     // get id
-    const id = $(this).attr("id");
     if ($(this).attr('class') === "gamebox") {
-            $("#burger").clone().appendTo(this);
-            updateTic(id, turnCount);
-            $(this).removeClass('gamebox');
-            turnCount +=1;
-    };       
-
+        const id = $(this).attr("id");    
+        $("#burger").clone().appendTo(this);
+        updateTic(id, turnCount);
+        $(this).removeClass('gamebox');
+        turnCount +=1;
+        
+        if (turnCount < 9) {
         const computerId = computerMove(ticTacData);
         console.log(computerId);
-        
-    if ($(`#${ computerId }`).attr('class') === "gamebox") {
-            $("#hotdog").clone().appendTo(`#${ computerId }`);
-            updateTic(computerId, turnCount);
-            $(`#${ computerId }`).removeClass('gamebox');
-            turnCount += 1;
+
+        $("#hotdog").clone().appendTo(`#${ computerId }`);
+        updateTic(computerId, turnCount);
+        $(`#${ computerId }`).removeClass('gamebox');
+        turnCount += 1;
+        };
     };
 });
