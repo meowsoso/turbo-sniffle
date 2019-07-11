@@ -29,10 +29,11 @@ const updateTic = function (string, turnNum) {
         player = "Burger";
     };
     if (checkWin(ticTacData)) {
-        return console.log(`Congratulations! ${ player } won.`);
+        turnCount = 9;
+        return alert(`Congratulations! ${ player } won.`);
     };
     if (turnNum >= 9) {
-        return console.log("Draw Game.");
+        return alert("Draw Game.");
     };
 };
 
@@ -56,7 +57,7 @@ const computerMove = function (array) {
     };
     if (isNaN(array[1][1])) {
         return "11";
-    };    
+    };
     for (i = 0; i < 3; i++) {
         if (array[i][0] === array[i][1] && isNaN(array[i][2])) {
             return i+"2";
@@ -78,7 +79,7 @@ const computerMove = function (array) {
         return "11";
     } else if (array[1][1] === array[2][2] && isNaN(array[0][0])) {
         return "00";
-    } else if (array[2][2] === array[1][1] && isNaN(array[2][0])) {
+    } else if (array[0][2] === array[1][1] && isNaN(array[2][0])) {
         return "20";
     } else if (array[0][2] === array[2][0] && isNaN(array[1][1])) {
         return "11"; 

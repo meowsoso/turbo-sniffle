@@ -1,4 +1,6 @@
 .game-board {
+    position: absolute;
+    top: 30%;
     margin: 0 auto ;
     display: grid;
     grid-template-rows: 200px 200px 200px;
@@ -9,11 +11,12 @@
 body {
   display: flex;
   justify-content: center;
+  background-color: rgba(70, 178, 185, 0.3);
 }
 
 .game-board div {
-  background: #444;
-  border: 1px solid #555;
+  background: rgba(211, 208, 44, 0.7);
+  border: 3px solid rgb(198, 131, 31);
   display: flex;
   align-items: center;
   justify-content: center;
